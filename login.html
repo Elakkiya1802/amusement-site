@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Event World | Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    overflow:hidden;
+}
+
+/* Background Video */
+.video-bg{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    z-index:-2;
+}
+
+.overlay{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:rgba(0,10,30,0.55);
+    z-index:-1;
+}
+
+.container{
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.card{
+    width:380px;
+    padding:35px;
+    border-radius:25px;
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(18px);
+    box-shadow:0 25px 50px rgba(0,0,0,0.4);
+    text-align:center;
+    color:#fff;
+    animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(40px);} 
+    to{opacity:1;transform:translateY(0);} 
+}
+
+.logo{
+    font-size:34px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.tagline{
+    font-size:14px;
+    opacity:0.95;
+    margin-bottom:22px;
+}
+
+.input-box{
+    text-align:left;
+    margin-bottom:16px;
+}
+
+.input-box label{
+    font-size:13px;
+}
+
+.input-box input{
+    width:100%;
+    padding:12px;
+    margin-top:5px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+}
+
+/* Neon Glow Button */
+.neon-btn{
+    margin-top:18px;
+    width:100%;
+    padding:12px;
+    border-radius:30px;
+    background:transparent;
+    color:#0ff;
+    border:2px solid #0ff;
+    font-size:16px;
+    cursor:pointer;
+    box-shadow:0 0 10px #0ff,0 0 20px #0ff inset;
+    transition:0.3s;
+}
+
+.neon-btn:hover{
+    background:#0ff;
+    color:#000;
+    box-shadow:0 0 20px #0ff,0 0 40px #0ff;
+}
+
+.links{
+    margin-top:15px;
+    font-size:13px;
+}
+
+.links a{
+    color:#9ee7ff;
+    text-decoration:none;
+}
+
+.links a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<!-- Aquarium Background Video -->
+<video class="video-bg" autoplay muted loop>
+    <source src="videos\aquarium.mp4" >
+</video>
+<div class="overlay"></div>
+
+<div class="container">
+    <div class="card">
+        <div class="logo">🐠 Event World</div>
+        <div class="tagline">Login & Enter the Fun Zone</div>
+
+        <form onsubmit="login(event)">
+            <div class="input-box">
+                <label>Email</label>
+                <input type="email" required placeholder="Enter your email">
+            </div>
+            <div class="input-box">
+                <label>Password</label>
+                <input type="password" required placeholder="Enter your password">
+            </div>
+            <button class="neon-btn">Login 🚀</button>
+        </form>
+
+        <div class="links">
+            <p>New user? <a href="#">Create Account</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+function login(e){
+    e.preventDefault();
+    // redirect to home page
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Event World | Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{color:#fff;min-height:100vh;overflow-x:hidden;}
+
+/* Background */
+.video-bg{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-2;}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,10,30,0.6);z-index:-1;}
+
+/* Header */
+.main-header{
+  padding:25px 40px;
+  font-size:28px;
+  font-weight:700;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:10;
+  position:relative;
+}
+.wor{color:#f3efef;}
+.wor2{color:#088aba;}
+
+/* Cards */
+.container{
+  padding:40px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:30px;
+}
+.card{
+  background:rgba(255,255,255,0.18);
+  backdrop-filter:blur(16px);
+  border-radius:22px;
+  padding:30px;
+  text-align:center;
+  box-shadow:0 25px 50px rgba(0,0,0,0.4);
+  transition:0.4s;
+}
+.card:hover{transform:translateY(-12px) scale(1.05);}
+
+/* Buttons */
+.neon-btn{
+  padding:12px 26px;
+  border-radius:30px;
+  background:transparent;
+  color:#0ff;
+  border:2px solid #0ff;
+  cursor:pointer;
+  box-shadow:0 0 10px #0ff,0 0 20px #0ff inset;
+}
+.neon-btn:hover{background:#0ff;color:#000;}
+
+/* Modal */
+.modal{
+  display:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  justify-content:center;
+  align-items:center;
+}
+.modal-box{
+  background:rgba(255,255,255,0.2);
+  backdrop-filter:blur(18px);
+  padding:30px;
+  border-radius:20px;
+  width:320px;
+}
+.close{float:right;cursor:pointer;font-size:20px;}
+
+
+.add-btn{
+  padding:6px 14px;
+  border-radius:20px;
+  border:none;
+  background:#0ff;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<video class="video-bg" autoplay muted loop>
+  <source src="videos/aquarium.mp4" type="video/mp4">
+</video>
+<div class="overlay"></div>
+
+<header class="main-header">
+  <div>✨ <span class="wor">Event</span> <span class="wor2">World</span></div>
+  <button class="neon-btn" onclick="openCart()">🛒 Cart</button>
+</header>
+
+<div class="container">
+  <div class="card">
+    <h3>🎮 Games</h3>
+    <button class="neon-btn" onclick="location.href='games.html'">Book Show</button>
+  </div>
+
+  <div class="card">
+    <h3>🎩 Magic Show</h3>
+    <button class="neon-btn" onclick="openModal('magic')">Book Show</button>
+  </div>
+
+  <div class="card">
+    <h3>🎭 Live Performance</h3>
+    <button class="neon-btn" onclick="openModal('live')">Book Show</button>
+  </div>
+
+  <div class="card">
+    <h3>🐠 Aquarium</h3>
+    <button class="neon-btn" onclick="openModal('aqua')">Book Show</button>
+  </div>
+</div>
+
+<!-- Booking Modal -->
+<div id="modal" class="modal">
+  <div class="modal-box">
+    <span class="close" onclick="closeModal()">✖</span>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- Cart Modal -->
+<div id="cartModal" class="modal">
+  <div class="modal-box">
+    <span class="close" onclick="closeCart()">✖</span>
+    <h2>🛒 Package Summary</h2>
+    <div id="cart-items"></div>
+    <hr>
+    <h3>Total: ₹<span id="cart-total">0</span></h3>
+    <button class="neon-btn" onclick="checkout()">Checkout</button>
+  </div>
+</div>
+<!-- Payment Modal -->
+<div id="paymentModal" class="modal">
+  <div class="modal-box">
+    <span class="close" onclick="closePayment()">✖</span>
+
+    <h2>💳 Select Payment Method</h2>
+
+    <div class="item">
+      <span>💳 Credit / Debit Card</span>
+      <button class="add-btn" onclick="makePayment('Card')">Pay</button>
+    </div>
+
+    <div class="item">
+      <span>📱 UPI</span>
+      <button class="add-btn" onclick="makePayment('UPI')">Pay</button>
+    </div>
+
+    <div class="item">
+      <span>💵 Cash on Delivery</span>
+      <button class="add-btn" onclick="makePayment('COD')">Pay</button>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+function openModal(type){
+  const c = document.getElementById("modal-content");
+  let h="";
+  if(type==="magic"){
+    h=`<h2>🎩 Magic Show</h2>
+    <div class="item">11:00 AM ₹400 <button class="add-btn" onclick="addToCart('Magic 11AM',400)">Add</button></div>
+    <div class="item">2:00 PM ₹500 <button class="add-btn" onclick="addToCart('Magic 2PM',500)">Add</button></div>`;
+  }
+  if(type==="live"){
+    h=`<h2>🎭 Live Concert</h2>
+    <div class="item">6:00 PM ₹700 <button class="add-btn" onclick="addToCart('Live 6PM',700)">Add</button></div>`;
+  }
+  if(type==="aqua"){
+    h=`<h2>🐠 Aquarium</h2>
+    <div class="item">Morning ₹300 <button class="add-btn" onclick="addToCart('Aquarium Morning',300)">Add</button></div>`;
+  }
+  c.innerHTML=h;
+  document.getElementById("modal").style.display="flex";
+}
+function closeModal(){document.getElementById("modal").style.display="none";}
+</script>
+
+<script src="cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Event World | Games</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{min-height:100vh;color:#fff;overflow:hidden;}
+
+/* Background */
+.video-bg{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-2;}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,10,30,0.55);z-index:-1;}
+
+/* Header */
+header{
+  padding:20px 40px;
+  font-size:26px;
+  font-weight:700;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:relative;
+  z-index:10;
+}
+
+/* Grid */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+  padding:40px;
+}
+
+.card{
+  background:rgba(255,255,255,0.18);
+  backdrop-filter:blur(16px);
+  border-radius:22px;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 25px 50px rgba(0,0,0,0.4);
+  transition:0.4s;
+}
+.card:hover{transform:translateY(-12px) scale(1.05);}
+
+.card img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  border-radius:15px;
+  margin-bottom:10px;
+}
+
+.price{margin:8px 0;font-weight:600;}
+
+/* Button */
+.neon-btn{
+  padding:10px 22px;
+  border-radius:30px;
+  background:transparent;
+  color:#0ff;
+  border:2px solid #0ff;
+  cursor:pointer;
+  box-shadow:0 0 10px #0ff,0 0 20px #0ff inset;
+}
+.neon-btn:hover{background:#0ff;color:#000;}
+
+/* Modal */
+.modal{
+  display:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+
+.modal-box{
+  background:rgba(255,255,255,0.2);
+  backdrop-filter:blur(18px);
+  padding:30px;
+  border-radius:20px;
+  width:320px;
+}
+
+.close{
+  float:right;
+  cursor:pointer;
+  font-size:20px;
+}
+
+.item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:12px 0;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background -->
+<video class="video-bg" autoplay muted loop>
+  <source src="videos/aquarium.mp4" type="video/mp4">
+</video>
+<div class="overlay"></div>
+
+<!-- Header -->
+<header>
+  🎮 Games Zone
+  <button class="neon-btn" onclick="openCart()">🛒 Cart</button>
+</header>
+
+<!-- Games -->
+<div class="grid">
+
+  <div class="card">
+    <img src="images/dragonswing.jpg">
+    <h3>Dragon Swing</h3>
+    <div class="price">₹300</div>
+    <button class="neon-btn" onclick="addToCart('Dragon Swing',300)">Add to Package</button>
+  </div>
+
+  <div class="card">
+    <img src="images/rollercoaster.jpg">
+    <h3>Roller Coaster</h3>
+    <div class="price">₹350</div>
+    <button class="neon-btn" onclick="addToCart('Roller Coaster',350)">Add to Package</button>
+  </div>
+
+  <div class="card">
+    <img src="images/swingride.jpg">
+    <h3>Swing Ride</h3>
+    <div class="price">₹500</div>
+    <button class="neon-btn" onclick="addToCart('Swing Ride',500)">Add to Package</button>
+  </div>
+
+  <div class="card">
+    <img src="images/VRadventure.jpg">
+    <h3>VR Adventure</h3>
+    <div class="price">₹250</div>
+    <button class="neon-btn" onclick="addToCart('VR Adventure',250)">Add to Package</button>
+  </div>
+
+  <div class="card">
+    <img src="images/giantwheel.jpg">
+    <h3>Giant Wheel</h3>
+    <div class="price">₹200</div>
+    <button class="neon-btn" onclick="addToCart('Giant Wheel',200)">Add to Package</button>
+  </div>
+
+</div>
+
+<!-- Cart Modal -->
+<div id="cartModal" class="modal">
+  <div class="modal-box">
+    <span class="close" onclick="closeCart()">✖</span>
+    <h2>🛒 Package Summary</h2>
+    <div id="cart-items"></div>
+    <hr>
+    <h3>Total: ₹<span id="cart-total">0</span></h3>
+    <button class="neon-btn" onclick="checkout()" style="margin-top:15px;">
+      Checkout
+    </button>
+  </div>
+</div>
+
+<!-- Payment Modal -->
+<div id="paymentModal" class="modal">
+  <div class="modal-box">
+    <span class="close" onclick="closePayment()">✖</span>
+
+    <h2>💳 Payment Method</h2>
+
+    <div class="item">
+      <span>💳 Card</span>
+      <button class="neon-btn" onclick="makePayment('Card')">Pay</button>
+    </div>
+
+    <div class="item">
+      <span>📱 UPI</span>
+      <button class="neon-btn" onclick="makePayment('UPI')">Pay</button>
+    </div>
+
+    <div class="item">
+      <span>💵 Cash on Delivery</span>
+      <button class="neon-btn" onclick="makePayment('COD')">Pay</button>
+    </div>
+  </div>
+</div>
+
+<script src="cart.js"></script>
+
+</body>
+</html>
